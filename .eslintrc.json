@@ -21,6 +21,7 @@
       {
         "code": 120
       }
-    ]
+    ],
+    "react/jsx-props-no-spreading": ["off"]
   }
 }
