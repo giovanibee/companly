@@ -3,7 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "airbnb-typescript"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -16,12 +21,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
-    "max-len": [
-      "error",
-      {
-        "code": 120
-      }
-    ],
-    "react/jsx-props-no-spreading": ["off"]
+    "max-len": ["error", { "code": 120 }],
+    "react/jsx-props-no-spreading": ["off"],
+    "@typescript-eslint/type-annotation-spacing": "error"
   }
 }

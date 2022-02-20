@@ -1,24 +1,24 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Spinner } from 'grommet';
 
-function useDelayRender(delayInMilliseconds: number) {
+function useDelayRender<T>(delayInMilliseconds: number) {
   const [delayed, setDelayed] = useState(true);
   useEffect(() => {
     const timeout = setTimeout(() => setDelayed(false), delayInMilliseconds);
     return () => clearTimeout(timeout);
   }, []);
-  return (fn: () => any) => !delayed && fn();
+  return (fn: () => T) => !delayed && fn();
 }
 
 function Fallback({
   children,
   delayInMilliseconds,
 }: DelayRenderProps) {
-  return useDelayRender(delayInMilliseconds)(() => children);
+  return useDelayRender<JSX.Element>(delayInMilliseconds)(() => children);
 }
 
 type DelayRenderProps = {
-  children: React.ReactNode;
+  children: JSX.Element;
   delayInMilliseconds?: number;
 };
 
