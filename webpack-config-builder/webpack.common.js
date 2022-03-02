@@ -16,6 +16,14 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(ttf)$/i,
+        type: "asset/resource"
+      },
     ],
   },
   optimization: {
@@ -43,6 +51,6 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.json', '.ts', '.tsx']
+    extensions: ['.js', '.json', '.ts', '.tsx', '.css', '.png','.svg', '.jpg', '.jpeg', '.gif']
   },
 };

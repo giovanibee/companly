@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "esModuleInterop": true, 
     "jsx": "react",
     "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "./dist/",
+    "resolveJsonModule": true,
     "sourceMap": true,
     "target": "ESNext"
   },
-  "include": ["./src/*"]
+  "include": ["./src/**/*.tsx", "src/index.d.ts"]
 }

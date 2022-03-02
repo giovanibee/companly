@@ -4,7 +4,7 @@ const common = require('./common');
 module.exports = {
   mode: 'production',
   entry: {
-    app: [`${common.srcPath}/index.tsx`],
+    app: `${common.srcPath}/index.tsx`,
   },
   output: {
     filename: 'static/[name].[fullhash].js',
@@ -19,11 +19,13 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
           },
           {
+            loader: 'css-modules-typescript-loader',
+          },
+          {
             loader: 'css-loader',
             options: {
               modules: true,
               importLoaders: 1,
-              localsConvention: 'camelCase',
               sourceMap: true,
             },
           },
