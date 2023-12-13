@@ -1,0 +1,44 @@
+/* latin */
+@font-face {
+  font-family: 'Courgette';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/courgette/v17/wEO_EBrAnc9BLjLQAUk1VvoK_kgXiQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#company-title {
+  display: block;
+  font-family: 'Courgette';
+  font-size: 56px;
+  height: 40px;
+  justify-self: center;
+  margin: auto;
+  padding: auto;
+  width: 100%;
+}
+
+#default-header, #initial-header, #loading-header {
+  color: rgba(255, 255, 255, 0.3)
+}
+
+#idea-container {
+  font-size: 30px;
+  margin: 40px auto;
+}
+
+.company {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 15px;
+  min-width: 200px;
+}
+
+#meets {
+  padding: 15px 0px;
+}
