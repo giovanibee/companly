@@ -1,5 +1,4 @@
+.glitchdotcom.json
+.node-gyp
 node_modules
-dist
-.vscode
-src/**/*.css.d.ts
 .env

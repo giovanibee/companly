@@ -124,4 +124,5 @@ export const companyList = [
   'Nintendo',
   'Twitch',
   'Patreon',
-]
+  'Firebase'
+];
