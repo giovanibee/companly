@@ -5,10 +5,10 @@ import {
   useState,
 } from "react"
 import anime from "animejs"
-import { Button, Grommet, Skeleton } from "grommet"
-import { companyList } from "../company-list"
+import { Box, Grid, Grommet } from "grommet"
+import { alphabet, companyList } from "../company-list"
 import { SpinnerContainer } from "../components/SpinnerContainer"
-import { useTitle } from "../hooks"
+import { defaultList, useTitle } from "../hooks"
 import "./styles.css"
 
 // https://codesandbox.io/p/sandbox/slot-machine-forked-q7x73w?file=%2Fsrc%2FSlotMachine.jsx%3A20%2C21
@@ -17,13 +17,36 @@ export default function App() {
   const { data: title, isFetching, refetch } = useTitle(idea)
 
   useEffect(() => {
+    const initialHeader = document.getElementById("initial-header")
+    anime.timeline({
+      endDelay: 1000,
+      easing: 'easeInOutQuad',
+      direction: 'alternate',
+      loop: true
+    }).add({
+      targets: initialHeader,
+      duration: 1000,
+    })
+
+  
+    const companyTitle = document.getElementById("company-title")
     anime({
-      color: "blue",
-      easing: "linear",
-      targets: document.getElementById("company-title"),
-      translateY: 140,
+      easing: "easeInOutSine",
+      targets: companyTitle,
+      translateY: 20,
     });
   }, [])
+
+  useEffect(() => {
+    if (!isFetching) return
+    const targets = document.getElementsByClassName('letters')
+    anime({
+      targets,
+      loop: true,
+      easing: "linear",
+      translateY: -1000
+    });
+  }, [isFetching])
 
   const onGenerate = async () => {
     const companyAIndex = Math.floor(Math.random() * companyList.length - 1)
@@ -34,7 +57,6 @@ export default function App() {
       if (companyBIndex === companyList.length - 1) companyBIndex--
     }
     const companyB = companyList[companyBIndex]
-    const tuple = [companyA, companyB]
     refetch()
     setIdea({ companyA, companyB });
   };
@@ -59,25 +81,60 @@ export default function App() {
 
   return (
     <Grommet>
-      <div className="App">
-        {header}
-        <h1 id="company-title">
-          {(isFetching)
-            ? <Skeleton
-                height="45px"
-                margin="auto"
-                width="medium"
-               />
-            : title ?? "Companly"}
-        </h1>
-        <SpinnerContainer idea={idea} isLoading={isFetching} />
-        <Button
-          disabled={isFetching ?? false}
-          label="Generate!"
-          onClick={onGenerate}
-          primary
+      <Grid
+        align="center"
+        areas={[
+          ["companyTitle", "companyTitle", "companyTitle"],
+          ["companyA", "meets", "companyB"],
+          ["generateButton", "generateButton", "generateButton"],
+        ]}
+        columns={["medium", "xxsmall", "medium"]}
+        fill
+        id='app-grid'
+        gap="xxsmall"
+        justify="center"
+        justifyContent="center"
+        pad="small"
+        rows={["medium", "xsmall", "xsmall"]}
+      >
+        <Box gridArea="companyTitle" className="App">
+          {header}
+          <div className="company-title-row">
+            {(Array.isArray(title) ? title : defaultList).map((letter, id) => {
+                alphabet.sort(() => Math.random() - 0.5)
+                console.log(title)
+                return (
+                  <div className='company-title' key={`letter-${id}`}>
+                    <div className="letters">
+                      {isFetching
+                        ? <div className="alphabet-list">
+                            {alphabet.map((item, id) => (
+                              <div key={`item-${id}`}>
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+                        : letter}
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
+        </Box>
+        <SpinnerContainer
+          idea={idea}
+          isLoading={isFetching}
         />
-      </div>
+        <Box gridArea="generateButton" className="App">
+          <button
+            id='generate-button'
+            disabled={isFetching ?? false}
+            onClick={onGenerate}
+          >
+            Generate
+          </button>
+        </Box>
+      </Grid>
     </Grommet>
   )
 }

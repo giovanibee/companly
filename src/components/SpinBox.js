@@ -33,7 +33,7 @@ export const SpinBox = ({
             </div>
           ))}
         </div>
-      ) : value || "..."}
+      ) : (value || "...")}
     </Box>
   );
 }
