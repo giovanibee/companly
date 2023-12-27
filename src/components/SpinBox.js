@@ -11,14 +11,14 @@ export const SpinBox = ({
 }) => {
   companyList.sort(() => Math.random() - 0.5)
   useEffect(() => {
-    const targets = document.getElementsByClassName('item-thing')
+    if (!isLoading) return
     anime({
-      targets,
+      targets: document.getElementsByClassName('company-item'),
       loop: true,
       easing: "linear",
       translateY: -1000
     });
-  }, [value])
+  }, [isLoading])
   return (
     <Box
       gridArea={name}
@@ -28,7 +28,7 @@ export const SpinBox = ({
       {isLoading ? (
         <div className='companies-list'>
           {companyList.map((item, id) => (
-            <div className="item-thing" key={`item-${id}`}>
+            <div className="company-item" key={`item-${id}`}>
               {item}
             </div>
           ))}

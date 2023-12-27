@@ -9,7 +9,7 @@ export function useTitle(companies) {
     queryKey: ['title'],
     queryFn: async () => {
       try {
-        if (!companies) return defaultList
+        if (!companies) return { title: defaultList, companies }
         const response = await fetch(
           'https://igujiencsuyixgbdovik.supabase.co/functions/v1/companly', {
             headers: {
@@ -21,21 +21,21 @@ export function useTitle(companies) {
             method: "POST"
           }
         )
-        if (!response) return defaultList
+        if (!response) return { title: defaultList, companies }
         const title = await response.json()
-        if (!title) return defaultList
+        if (!title) return { title: defaultList, companies }
         const length = title.length
         console.log(title)
         if (length === 9) {
-          return title.split('')
+          return{ title: title.split(''), companies }
         } else if (length < 9) {
           const filler = Array(9 - length).fill(' ')
-          return [...filler, ...title]
+          return { title: [...filler, ...title], companies }
         }
-        return title.split('').slice(0, 9)
+        return { title: title.split('').slice(0, 9), companies }
       } catch (e) {
         console.error(e)
-        return 'Companly'
+        return { title: 'Companly', companies }
       } 
     }
   })

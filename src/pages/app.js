@@ -14,7 +14,7 @@ import "./styles.css"
 // https://codesandbox.io/p/sandbox/slot-machine-forked-q7x73w?file=%2Fsrc%2FSlotMachine.jsx%3A20%2C21
 export default function App() {
   const [idea, setIdea] = useState(null)
-  const { data: title, isFetching, refetch } = useTitle(idea)
+  const { data: { title, companies } = {}, isFetching, isLoading, refetch } = useTitle(idea)
 
   useEffect(() => {
     const initialHeader = document.getElementById("initial-header")
@@ -27,7 +27,6 @@ export default function App() {
       targets: initialHeader,
       duration: 1000,
     })
-
   
     const companyTitle = document.getElementById("company-title")
     anime({
@@ -38,15 +37,13 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (!isFetching) return
-    const targets = document.getElementsByClassName('letters')
+    if (!isFetching || isLoading || title) return
     anime({
-      targets,
-      loop: true,
-      easing: "linear",
-      translateY: -1000
-    });
-  }, [isFetching])
+      easing: "easeInOutSine",
+      targets: document.getElementById("company-title"),
+      translateY: 20,
+    })
+  }, [isFetching, title])
 
   const onGenerate = async () => {
     const companyAIndex = Math.floor(Math.random() * companyList.length - 1)
@@ -102,11 +99,10 @@ export default function App() {
           <div className="company-title-row">
             {(Array.isArray(title) ? title : defaultList).map((letter, id) => {
                 alphabet.sort(() => Math.random() - 0.5)
-                console.log(title)
                 return (
                   <div className='company-title' key={`letter-${id}`}>
-                    <div className="letters">
-                      {isFetching
+                    <div className='letters'>
+                      {(isFetching && !isLoading) || !title
                         ? <div className="alphabet-list">
                             {alphabet.map((item, id) => (
                               <div key={`item-${id}`}>
@@ -122,8 +118,8 @@ export default function App() {
           </div>
         </Box>
         <SpinnerContainer
-          idea={idea}
-          isLoading={isFetching}
+          idea={companies}
+          isLoading={isFetching && !isLoading}
         />
         <Box gridArea="generateButton" className="App">
           <button
