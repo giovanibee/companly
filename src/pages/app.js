@@ -35,14 +35,69 @@ export default function App() {
     });
   }, [])
 
-  useEffect(() => {
-    if (!isSpinning) return
+  const animateSparkle = el => {
+    const delay = anime.random(0, 200)
+    
     anime({
-      targets: document.getElementsByClassName('alphabet-list'),
+      targets: el,
+      translateX: {
+        value: anime.random(-320, 320),
+        easing: 'easeOutCubic',
+      },
+      opacity: {
+        value: 0,
+        easing: 'easeInCubic',
+      },
+      translateY: [
+        {
+          value: anime.random(-100, -300),
+          easing: 'easeOutCubic',
+          duration: anime.random(200, 300),
+        },
+        {
+          value: 600,
+          easing: 'easeInCubic',
+        }
+      ],
+      scale: () => anime.random(0.75, 2),
+      rotate: () => anime.random(-270, 270),
+      delay,
+      duration: anime.random(1500, 2000),
+      easing: 'easeOutCubic',
+      begin: () => setTimeout(() => el.classList.add('visible'), delay),
+      complete: () => {el.remove()}
+    });
+  }
+
+  const confettify = (el) => {
+    const sparkleCount = anime.random(8,16)
+    const { left, top } = el.style
+
+    for (let i = 0; i < sparkleCount; i++) {
+      const sparkle = document.createElement("i")
+      sparkle.classList.add("sparkle")
+      sparkle.style.left = left + anime.random(-15,15) + 'px'
+      sparkle.style.top = top + anime.random(0,-30) + 'px'
+      sparkle.dataset.rand = anime.random(1,16)
+      el.append(sparkle)
+      animateSparkle(sparkle)
+    }
+  }
+
+  useEffect(() => {
+    if (!isSpinning) {
+      // cue confetti\
+      const defaultHeader = document.getElementById('default-header')
+      defaultHeader && confettify(defaultHeader)
+      return;
+    }
+    anime({
+      targets: '.alphabet-list',
       loop: true,
       easing: "linear",
       translateY: -1000
     });
+
   }, [isSpinning])
 
   const onGenerate = async () => {
@@ -58,18 +113,7 @@ export default function App() {
   };
 
   const header = useMemo(() => {
-    const popupinfo = (
-      <div className="popupinfo">
-        hehehe
-      </div>
-    )
-
-    anime({
-      easing: "easeInOutSine",
-      targets: '#initial-header #loading-header #default-header',
-      translateX: 250
-    });
-    if (!isIdle) {
+    if (isIdle) {
       return (
         <h1 id="initial-header">
           Random startup idea generator
@@ -84,7 +128,7 @@ export default function App() {
       : <h1 id="default-header">
           Congrats! Here&apos;s your startup
         </h1>
-  }, [isSpinning])
+  }, [isIdle, isSpinning])
 
   return (
     <Grommet>
