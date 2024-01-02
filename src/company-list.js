@@ -26,6 +26,8 @@ export const companyList = [
   'Youtube',
   'DoorDash',
   'Zillow',
+  'Soylent',
+  'Sweetgreen',
   'Trulia',
   'Pinterest',
   'Groupon',
