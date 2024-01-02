@@ -1,7 +1,7 @@
 {
   "name": "companly",
   "version": "1.0.1",
-  "main": "src/index.js",
+  "homepage": "https://gitname.github.io/react-gh-pages",
   "scripts": {
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
@@ -36,13 +36,11 @@
   "engines": {
     "node": "14.x"
   },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/companly-api"
-  },
-  "license": "MIT",
   "keywords": [
     "node",
-    "glitch"
+    "react",
+    "openai",
+    "companly"
   ],
   "browserslist": {
     "production": [
