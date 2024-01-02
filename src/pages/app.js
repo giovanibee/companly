@@ -1,9 +1,5 @@
 import React from "react"
-import {
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { useEffect, useMemo } from "react"
 import anime from "animejs"
 import { Box, Grid, Grommet } from "grommet"
 import { alphabet, companyList } from "../company-list"
@@ -11,7 +7,6 @@ import { SpinnerContainer } from "../components/SpinnerContainer"
 import { defaultList, useTitle } from "../hooks"
 import "./styles.css"
 
-// https://codesandbox.io/p/sandbox/slot-machine-forked-q7x73w?file=%2Fsrc%2FSlotMachine.jsx%3A20%2C21
 export default function App() {
   const { data: { title, companies } = {}, isIdle, isLoading: isSpinning, mutateAsync: getTitle } = useTitle()
 
@@ -36,57 +31,56 @@ export default function App() {
   }, [])
 
   const animateSparkle = el => {
-    const delay = anime.random(0, 200)
-    
+    // confetti animation source
+    // https://codepen.io/joshcoil/pen/LYmGmVP
     anime({
       targets: el,
       translateX: {
-        value: anime.random(-320, 320),
         easing: 'easeOutCubic',
+        value: anime.random(-320, 320),
       },
       opacity: {
-        value: 0,
         easing: 'easeInCubic',
+        duration: 1000,
+        value: 0,
       },
       translateY: [
         {
-          value: anime.random(-100, -300),
+          value: anime.random(0, -100),
           easing: 'easeOutCubic',
-          duration: anime.random(200, 300),
+          duration: 280,
         },
         {
           value: 600,
           easing: 'easeInCubic',
         }
       ],
-      scale: () => anime.random(0.75, 2),
-      rotate: () => anime.random(-270, 270),
-      delay,
-      duration: anime.random(1500, 2000),
-      easing: 'easeOutCubic',
-      begin: () => setTimeout(() => el.classList.add('visible'), delay),
-      complete: () => {el.remove()}
+      scale: () => anime.random(0.75, 1.2),
+      rotate: () => anime.random(-200, 220),
+      delay: 140,
+      duration: 2000,
+      begin: () => setTimeout(() => el.classList.add('visible'), 140),
+      complete: () => el.remove()
     });
   }
 
   const confettify = (el) => {
-    const sparkleCount = anime.random(8,16)
     const { left, top } = el.style
-
-    for (let i = 0; i < sparkleCount; i++) {
+    const emojis = [
+      '⭐', '🎈', '🎉', '🎉', '⭐', '🎊',  '🎊', '🪩', '✨', '🤑', '🌈', '💵','💖', '🍻'
+    ];
+    emojis.forEach((emoji) => {
       const sparkle = document.createElement("i")
       sparkle.classList.add("sparkle")
-      sparkle.style.left = left + anime.random(-15,15) + 'px'
-      sparkle.style.top = top + anime.random(0,-30) + 'px'
-      sparkle.dataset.rand = anime.random(1,16)
+      sparkle.style.left = `${left + anime.random(200, 230)}px`
+      sparkle.innerText = emoji
       el.append(sparkle)
       animateSparkle(sparkle)
-    }
+    })
   }
 
   useEffect(() => {
     if (!isSpinning) {
-      // cue confetti\
       const defaultHeader = document.getElementById('default-header')
       defaultHeader && confettify(defaultHeader)
       return;

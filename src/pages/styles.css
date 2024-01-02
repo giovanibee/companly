@@ -125,7 +125,6 @@ path {
 }
 
 .sparkle::before {
-  content: var(--emoji,'❤️');
   display: block;
   font-size: 1rem;
   position: absolute;
@@ -135,20 +134,3 @@ path {
   transform: rotateX(0) rotateY(0) rotateZ(0);
   }
 }
-
-.sparkle[data-rand="1"] { color: #da96e0; --rand: 1; --emoji: '🤣';}
-.sparkle[data-rand="2"] { color: #a396e1; --rand: 2; --emoji: '🤪';}
-.sparkle[data-rand="3"] { color: #96b8e1; --rand: 3; --emoji: '😎';}
-.sparkle[data-rand="4"] { color: #96e0d1; --rand: 4; --emoji: '🥰';}
-.sparkle[data-rand="5"] { color: #96e0a1; --rand: 5; --emoji: '❤️';}
-.sparkle[data-rand="6"] { color: #bfe091; --rand: 6; --emoji: '😘';}
-.sparkle[data-rand="7"] { color: #e0cd91; --rand: 7; --emoji: '😀';}
-.sparkle[data-rand="8"] { color: #e0a491; --rand: 8; --emoji: '😍';}
-.sparkle[data-rand="9"] { color: #e096a1; --rand: 9; --emoji: '👍';}
-.sparkle[data-rand="10"] {color: #e096d1; --rand: 10; --emoji: '🚀';}
-.sparkle[data-rand="11"] {color: #e096d1; --rand: 11; --emoji: '👀';}
-.sparkle[data-rand="12"] {color: #e096d1; --rand: 12; --emoji: '👋';}
-.sparkle[data-rand="13"] {color: #e096d1; --rand: 13; --emoji: '💖';}
-.sparkle[data-rand="14"] {color: #e096d1; --rand: 14; --emoji: '🔥';}
-.sparkle[data-rand="15"] {color: #e096d1; --rand: 15; --emoji: '🍺';}
-.sparkle[data-rand="16"] {color: #e096d1; --rand: 16; --emoji: '🍇';}
