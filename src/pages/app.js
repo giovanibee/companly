@@ -13,8 +13,7 @@ import "./styles.css"
 
 // https://codesandbox.io/p/sandbox/slot-machine-forked-q7x73w?file=%2Fsrc%2FSlotMachine.jsx%3A20%2C21
 export default function App() {
-  const [idea, setIdea] = useState(null)
-  const { data: { title, companies } = {}, isFetching, isLoading, refetch } = useTitle(idea)
+  const { data: { title, companies } = {}, isIdle, isLoading: isSpinning, mutateAsync: getTitle } = useTitle()
 
   useEffect(() => {
     const initialHeader = document.getElementById("initial-header")
@@ -37,13 +36,14 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (!isFetching || isLoading || title) return
+    if (!isSpinning) return
     anime({
       easing: "easeInOutSine",
+      loop: true,
       targets: document.getElementById("company-title"),
       translateY: 20,
     })
-  }, [isFetching, title])
+  }, [isSpinning])
 
   const onGenerate = async () => {
     const companyAIndex = Math.floor(Math.random() * companyList.length - 1)
@@ -54,12 +54,22 @@ export default function App() {
       if (companyBIndex === companyList.length - 1) companyBIndex--
     }
     const companyB = companyList[companyBIndex]
-    refetch()
-    setIdea({ companyA, companyB });
+    getTitle({ companyA, companyB })
   };
 
   const header = useMemo(() => {
-    if (!idea) {
+    const popupinfo = (
+      <div className="popupinfo">
+        hehehe
+      </div>
+    )
+
+    anime({
+      easing: "easeInOutSine",
+      targets: '#initial-header #loading-header #default-header',
+      translateX: 250
+    });
+    if (!isIdle) {
       return (
         <h1 id="initial-header">
           Random startup idea generator
@@ -67,14 +77,14 @@ export default function App() {
       );
     }
 
-    return isFetching
+    return isSpinning
       ? <h1 id="loading-header">
           Drumroll please...
         </h1>
       : <h1 id="default-header">
           Congrats! Here&apos;s your startup
         </h1>
-  }, [idea, isFetching])
+  }, [isSpinning])
 
   return (
     <Grommet>
@@ -102,7 +112,7 @@ export default function App() {
                 return (
                   <div className='company-title' key={`letter-${id}`}>
                     <div className='letters'>
-                      {(isFetching && !isLoading) || !title
+                      {isSpinning
                         ? <div className="alphabet-list">
                             {alphabet.map((item, id) => (
                               <div key={`item-${id}`}>
@@ -119,12 +129,12 @@ export default function App() {
         </Box>
         <SpinnerContainer
           idea={companies}
-          isLoading={isFetching && !isLoading}
+          isLoading={isSpinning}
         />
         <Box gridArea="generateButton" className="App">
           <button
             id='generate-button'
-            disabled={isFetching ?? false}
+            disabled={isSpinning}
             onClick={onGenerate}
           >
             Generate

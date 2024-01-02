@@ -55,7 +55,6 @@ path {
   font-size: 56px;
   height: 80px;
   line-height: 58px;
-  margin-top: 56px;
   overflow: hidden;
   padding: 20px;
   width: 40px;
@@ -66,10 +65,12 @@ path {
 }
 
 .company-title-row {
+  border: 2px solid rgb(182, 23, 23);
+  border-radius: 7px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 44px;
 }
 
 #default-header,
@@ -89,8 +90,9 @@ path {
   border-radius: 9px;
   border-bottom-width: 2px;
   border-bottom-style: inset;
-  color: rgb(80, 120, 120);
-  font-size: 20px;
+  color: rgb(78, 119, 119);
+  font-family: serif;
+  font-size: 24px;
   line-height: 40px;
   padding: 0px 40px;
   text-shadow: 1px 1px 2px white;
@@ -105,7 +107,7 @@ path {
   }
 
   &:disabled {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(69, 69, 69);
     border-color: darkgrey;
     color: grey;
   }

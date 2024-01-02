@@ -1,13 +1,13 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
 const PUBLIC_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlndWppZW5jc3V5aXhnYmRvdmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI3ODcxMzgsImV4cCI6MjAxODM2MzEzOH0.1eeef9EESk_nJes-mmygJAykJahFS1YjLtM2CCqKAxU'
 
 export const defaultList = ['?', '?', '?', '?', '?', '?', '?', '?', '?']
 
-export function useTitle(companies) {
-  return useQuery({
-    queryKey: ['title'],
-    queryFn: async () => {
+export function useTitle() {
+  return useMutation({
+    mutationKey: ['title'],
+    mutationFn: async (companies) => {
       try {
         if (!companies) return { title: defaultList, companies }
         const response = await fetch(
@@ -25,7 +25,6 @@ export function useTitle(companies) {
         const title = await response.json()
         if (!title) return { title: defaultList, companies }
         const length = title.length
-        console.log(title)
         if (length === 9) {
           return{ title: title.split(''), companies }
         } else if (length < 9) {
@@ -34,7 +33,6 @@ export function useTitle(companies) {
         }
         return { title: title.split('').slice(0, 9), companies }
       } catch (e) {
-        console.error(e)
         return { title: 'Companly', companies }
       } 
     }
