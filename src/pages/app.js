@@ -38,11 +38,11 @@ export default function App() {
   useEffect(() => {
     if (!isSpinning) return
     anime({
-      easing: "easeInOutSine",
+      targets: document.getElementsByClassName('alphabet-list'),
       loop: true,
-      targets: document.getElementById("company-title"),
-      translateY: 20,
-    })
+      easing: "linear",
+      translateY: -1000
+    });
   }, [isSpinning])
 
   const onGenerate = async () => {
@@ -54,7 +54,7 @@ export default function App() {
       if (companyBIndex === companyList.length - 1) companyBIndex--
     }
     const companyB = companyList[companyBIndex]
-    getTitle({ companyA, companyB })
+    await getTitle({ companyA, companyB })
   };
 
   const header = useMemo(() => {
