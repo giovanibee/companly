@@ -1,7 +1,7 @@
 {
   "name": "companly",
   "version": "1.0.1",
-  "homepage": "https://gitname.github.io/react-gh-pages",
+  "homepage": "https://giovanibee.github.io/companly",
   "scripts": {
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",

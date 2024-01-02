@@ -112,6 +112,8 @@ path {
     color: grey;
   }
 }
+/* confetti animation source */
+/* https://codepen.io/joshcoil/pen/LYmGmVP */
 
 .sparkle {
   display: block;
