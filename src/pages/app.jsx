@@ -65,7 +65,7 @@ export default function App() {
   }
 
   const confettify = (el) => {
-    const { left, top } = el.style
+    const { left } = el.style
     const emojis = [
       '⭐', '🎈', '🎉', '🎉', '⭐', '🎊',  '🎊', '🪩', '✨', '🤑', '🌈', '💵','💖', '🍻'
     ];
