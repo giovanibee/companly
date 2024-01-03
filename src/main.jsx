@@ -4,11 +4,10 @@ import { HashRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import App from './pages/app'
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <HashRouter>
     <QueryClientProvider client={new QueryClient()}>
       <App />
     </QueryClientProvider>
-  </HashRouter>,
-  document.getElementById('root')
+  </HashRouter>
 )
