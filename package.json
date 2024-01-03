@@ -1,7 +1,7 @@
 {
   "name": "companly",
   "version": "1.0.1",
-  "homepage": "https://giovanibee.github.io/companly/",
+  "homepage": "https://giovanibee.github.io/",
   "type": "module",
   "scripts": {
     "build": "vite build",
