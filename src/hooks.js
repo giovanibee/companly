@@ -1,7 +1,5 @@
 import { useMutation } from 'react-query'
 
-const NOT_SO_SECRET_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlndWppZW5jc3V5aXhnYmRvdmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI3ODcxMzgsImV4cCI6MjAxODM2MzEzOH0.1eeef9EESk_nJes-mmygJAykJahFS1YjLtM2CCqKAxU'
-
 export const defaultList = ['?', '?', '?', '?', '?', '?', '?', '?', '?']
 
 export function useTitle() {
@@ -13,8 +11,7 @@ export function useTitle() {
         const response = await fetch(
           'https://igujiencsuyixgbdovik.supabase.co/functions/v1/companly', {
             headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${NOT_SO_SECRET_KEY}`
+              Accept: 'application/json'
             },
             body: JSON.stringify(companies),
             cache: "no-cache",
