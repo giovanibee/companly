@@ -11,7 +11,7 @@ export function useTitle() {
       try {
         if (!companies) return { title: defaultList, companies }
         const response = await fetch(
-          'http://localhost:54321/functions/v1/companly', {
+          'https://igujiencsuyixgbdovik.supabase.co/functions/v1/companly', {
             headers: {
               Accept: 'application/json',
               Authorization: `Bearer ${NOT_SO_SECRET_KEY}`
