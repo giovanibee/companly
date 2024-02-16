@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query'
 
-const NOT_SO_SECRET_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlndWppZW5jc3V5aXhnYmRvdmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDI3ODcxMzgsImV4cCI6MjAxODM2MzEzOH0.1eeef9EESk_nJes-mmygJAykJahFS1YjLtM2CCqKAxU'
+const NOT_SO_SECRET_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24ifQ.625_WdcF3KHqz5amU0x2X5WWHP-OEs_4qj0ssLNHzTs'
 
 export const defaultList = ['?', '?', '?', '?', '?', '?', '?', '?', '?']
 
@@ -11,7 +11,7 @@ export function useTitle() {
       try {
         if (!companies) return { title: defaultList, companies }
         const response = await fetch(
-          'https://igujiencsuyixgbdovik.supabase.co/functions/v1/companly', {
+          'http://localhost:54321/functions/v1/companly', {
             headers: {
               Accept: 'application/json',
               Authorization: `Bearer ${NOT_SO_SECRET_KEY}`
